@@ -14,7 +14,7 @@
 - RSSHub [一个RSS生成器🔗](https://github.com/DIYgod/RSSHub)
 - Netdata [性能实时监测🔗](https://github.com/netdata/netdata)
 
-# 如何使用这个项目
+# 如何使用这个项目(安装)
 
 ## Clone
 

@@ -11,7 +11,7 @@ services:
     expose:
       - 5212
     environment:
-      VIRTUAL_HOST: ${DAV_PREFIX}.${MAIN_DOMAIN}
+      VIRTUAL_HOST: ${DAV_SUBDOMAIN:dav}.${MAIN_DOMAIN}
     volumes:
       - temp_data:/data
       - ./cloudreve/uploads:/cloudreve/uploads

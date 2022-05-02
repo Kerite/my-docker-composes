@@ -7,7 +7,7 @@ services:
       - 19999
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: netdata.${MAIN_DOMAIN}
+      VIRTUAL_HOST: ${NETDATA_SUBDOMAIN:netdata}.${MAIN_DOMAIN}
     cap_add:
       - SYS_PTRACE
     security_opt:
