@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  rsshub:
+    # two ways to enable puppeteer:
+    # * comment out marked lines, then use this image instead: diygod/rsshub:chromium-bundled
+    # * (consumes more disk space and memory) leave everything unchanged
+    image: diygod/rsshub
+    restart: always
+    expose:
+      - 1200
+    networks:
+      - redis_default
+    environment:
+      NODE_ENV: production
+      CACHE_TYPE: redis
+      REDIS_URL: 'redis://redis:6379/'
+      PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000' # marked
+    env_file:
+      - rss-hub.env
+    depends_on:
+      - browserless # marked
+
+  browserless:
+    # marked
+    container_name: browserless
+    image: browserless/chrome # marked
+    restart: always # marked
+    ulimits:
+      # marked
+      core:
+        # marked
+        hard: 0 # marked
+        soft: 0 # marked
+
+networks:
+  redis_default:
+    external: true

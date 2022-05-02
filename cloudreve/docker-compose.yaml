@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  cloudreve:
+    container_name: cloudreve
+    image: cloudreve/cloudreve:latest
+    restart: unless-stopped
+    networks:
+      - default
+      - postgres_default
+      - redis_default
+    expose:
+      - 5212
+    environment:
+      VIRTUAL_HOST: ${DAV_PREFIX}.${MAIN_DOMAIN}
+    volumes:
+      - temp_data:/data
+      - ./cloudreve/uploads:/cloudreve/uploads
+      - ./cloudreve/conf.ini:/cloudreve/conf.ini
+      - ./cloudreve/cloudreve.db:/cloudreve/cloudreve.db
+      - ./cloudreve/avatar:/cloudreve/avatar
+    depends_on:
+      - aria2
+  aria2:
+    container_name: aria2
+    image: p3terx/aria2-pro # third party image, please keep notice what you are doing
+    restart: unless-stopped
+    environment:
+      - RPC_SECRET=${ARIA2_RPC_SECRET} # aria rpc token, customize your own
+      - RPC_PORT=6800
+    volumes:
+      - ./aria2/config:/config
+      - temp_data:/data
+
+volumes:
+  temp-data:
+
+networks:
+  default:
+    external:
+      name: proxynet
+  postgres_default:
+    external: true
+  redis_default:
+    external: true

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    environment:
+      DEFAULT_HOST: keriteal.xyz
+    ports:
+      - "80:80"
+    networks:
+      - proxynet
+    volumes:
+      - ./logs:/var/log/nginx
+      - ./certs:/etc/nginx/certs
+      - ./confs:/etc/nginx/conf.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+networks:
+  proxynet:
+    external: true
