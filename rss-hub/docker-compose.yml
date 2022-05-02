@@ -12,6 +12,7 @@ services:
     networks:
       - redis_default
     environment:
+      VIRTUAL_HOST: ${RSS_HUB_SUBDOMAIN:rss}.${MAIN_DOMAIN}
       NODE_ENV: production
       CACHE_TYPE: redis
       REDIS_URL: 'redis://redis:6379/'
